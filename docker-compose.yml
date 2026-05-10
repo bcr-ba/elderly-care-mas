@@ -1,0 +1,30 @@
+services:
+
+  broker:
+    image: eclipse-mosquitto:2.0
+    container_name: mqtt_broker
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./broker/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mas_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - MQTT_BROKER_HOST=broker
+      - MQTT_BROKER_PORT=1883
+      - DEBUG=true
+    env_file:
+      - .env
+    depends_on:
+      - broker
+    restart: unless-stopped
