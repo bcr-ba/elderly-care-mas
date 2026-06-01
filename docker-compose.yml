@@ -23,8 +23,10 @@ services:
       - MQTT_BROKER_HOST=broker
       - MQTT_BROKER_PORT=1883
       - DEBUG=true
+      - PYTHONBUFFERED=1
     env_file:
       - .env
     depends_on:
       - broker
     restart: unless-stopped
+    

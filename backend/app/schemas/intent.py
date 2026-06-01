@@ -8,6 +8,7 @@ class IntentType(str, Enum):
     Every possible action the robot can be asked to perform.
     The Pepper Interface Agent translates these into
     physical QiSDK calls on the Android app side.
+    All 
     """
     # Movement
     NAVIGATE_TO = "navigate_to"          # go to a room
